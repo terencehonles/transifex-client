@@ -1,6 +1,7 @@
-branches:
-  only:
-    - master
+# version format
+version: 1.0.{build}
+
+skip_non_tags: true
 
 environment:
   global:
@@ -10,30 +11,10 @@ environment:
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_env.cmd"
 
   matrix:
-
     - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.x"
-      PYTHON_ARCH: "32"
-
     - PYTHON: "C:\\Python27-x64"
-      PYTHON_VERSION: "2.7.x"
-      PYTHON_ARCH: "64"
-
-    - PYTHON: "C:\\Python35"
-      PYTHON_VERSION: "3.5.x"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python35-x64"
-      PYTHON_VERSION: "3.5.x"
-      PYTHON_ARCH: "64"
-
-    - PYTHON: "C:\\Python36"
-      PYTHON_VERSION: "3.6.x"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python36-x64"
-      PYTHON_VERSION: "3.6.x"
-      PYTHON_ARCH: "64"
+    - PYTHON: "C:\\Python37"
+    - PYTHON: "C:\\Python37-x64"
 
 matrix:
   fast_finish: true
@@ -53,8 +34,8 @@ install:
 
   # Upgrade to the latest version of pip to avoid it displaying warnings
   # about it being out of date.
-  - "python -m pip install --disable-pip-version-check --user --upgrade pip==9.0.3"
-  - "python -m pip install pyinstaller"
+  - "python -m pip install --disable-pip-version-check --user --upgrade pip"
+  - "python -m pip install --no-use-pep517 pyinstaller"
 
   # Set up the project in develop mode. If some dependencies contain
   # compiled extensions and are not provided as pre-built wheel packages,
